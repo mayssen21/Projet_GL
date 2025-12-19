@@ -1,9 +1,14 @@
-function isPasswordValid(password) {
-  const hasMinLength = password.length >= 8;
-  const hasNumber = /\d/.test(password);
-  const hasLetter = /[a-zA-Z]/.test(password);
+function isPasswordValid(password, options = {}) {
+  const minLength = options.minLength; 
+  const minLetters = options.minLetters;
+  const minNumbers = options.minNumbers; 
 
-  return hasMinLength && hasNumber && hasLetter;
+  const lettersCount = (password.match(/[a-zA-Z]/g) || []).length;
+  const numbersCount = (password.match(/\d/g) || []).length;
+
+  return password.length >= minLength &&
+         lettersCount >= minLetters &&
+         numbersCount >= minNumbers;
 }
 
 module.exports = isPasswordValid;
