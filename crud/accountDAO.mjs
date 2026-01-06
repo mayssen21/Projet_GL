@@ -24,5 +24,12 @@ export const accountDAO = {
     }
     return ACCOUNT_LIST[index];
   },
-  retrieveAccount(id) {},
+  retrieveAccount(id) {
+    const index = ACCOUNT_LIST.findIndex(acc => acc.id === id);
+    const account = ACCOUNT_LIST[index];
+    return {
+      id: account.id,
+      name: `${account.lastName} ${account.firstName}`, 
+    };
+  },
 };
