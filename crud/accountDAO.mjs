@@ -7,8 +7,7 @@ export const accountDAO = {
     console.log("BDD :", ACCOUNT_LIST);
     return account;
   },
-  retrieveAccountList() {
-   
+  retrieveAccountList() { 
     return ACCOUNT_LIST.map(account => ({
       id: account.id,
       lastName: account.lastName,
@@ -24,9 +23,14 @@ export const accountDAO = {
     }
     return ACCOUNT_LIST[index];
   },
+  retreiveAccountByID(id){
+      const index = ACCOUNT_LIST.findIndex(acc => acc.id === id);
+      return ACCOUNT_LIST[index];
+    },
+
   retrieveAccount(id) {
-    const index = ACCOUNT_LIST.findIndex(acc => acc.id === id);
-    const account = ACCOUNT_LIST[index];
+   
+    const account = accountDAO.retreiveAccountByID(id);
     return {
       id: account.id,
       name: `${account.lastName} ${account.firstName}`, 
