@@ -1,5 +1,9 @@
 import { accountService } from "./accountService.mjs";
 
-accountService.addAccount("xxx", "Alex");
+const account = accountService.addAccount("xxx", "Alex");
 const accounts = accountService.getAccountList();
 console.log("Comptes :", accounts);
+console.log("ID :", account.id);
+accountService.saveAccount(account.id, "Smith", "A");
+const accounts2 = accountService.getAccountList();
+console.log("Comptes :", accounts2);
