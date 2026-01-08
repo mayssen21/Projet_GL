@@ -1,6 +1,7 @@
 import { accountCommandDAO } from "./accountCommandDAO.mjs";
 import { ACCOUNT_LIST } from "./database.mjs";
 import { queryDatabase } from "./queryDatabase.mjs";
+import { accountCache } from "./cache.mjs";
 
 export const accountQueryDAO = {
     insertAccountQuery(accountQuery){
@@ -12,11 +13,12 @@ export const accountQueryDAO = {
     },
     
     retrieveAccount(id) {
-        const account = accountQueryDAO.retreiveAccountByID(id);
-        return {
-          id: account.id,
-          name: `${account.lastName} ${account.firstName}`, 
-        };
+        const account = accountCache[id];
+        if (!account) {
+            console.log("Introuvable");
+            return null;
+        }
+        return account;
     },
     retrieveAccountList() { 
         return queryDatabase.accountSummaryList;
