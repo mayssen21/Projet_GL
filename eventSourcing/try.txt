@@ -1,0 +1,21 @@
+import { Account } from "./account.mjs";
+import { eventStore } from "./eventStore.mjs";
+
+export function restoreAccount(accountId) {
+  // 1️⃣ Filtrer tous les événements du compte
+  const events = eventStore.eventList.filter(e => e.accountId === accountId);
+
+  if (events.length === 0) return null;
+
+  // 2️⃣ Utiliser reduce pour ne garder que le dernier événement
+  const finalPayload = events.reduce((acc, e) => e.payload, {});
+
+  // 3️⃣ Créer une instance Account à partir du payload final
+  return new Account(
+    finalPayload.id,
+    finalPayload.lastName,
+    finalPayload.firstName,
+    new Date(finalPayload.creationDate)
+  );
+}
+
