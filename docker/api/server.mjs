@@ -1,14 +1,11 @@
-import Fastify from "fastify";
+import { createServer } from "./server.mjs";
 
-export function createServer() {
-  const fastify = Fastify({
-    logger: true 
-  });
+const server = createServer();
 
-  fastify.get("/feature/:code", async (request, reply) => {
-    const { code } = request.params;
-    return { code, enabled: true }; 
-  });
-
-  return fastify;
+try {
+  const address = await server.listen({ host: "0.0.0.0", port: 3000 });
+  console.log(`Server started on ${address}`);
+} catch (err) {
+  console.log(err);
+  process.exit(1);
 }

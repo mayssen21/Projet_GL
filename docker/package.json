@@ -12,8 +12,10 @@
     "nginx:build": "docker buildx build -f nginx/Dockerfile -t feature/nginx ./nginx",
     "nginx:run": "docker run -d --rm --name feature-nginx --network host feature/nginx",
     "nginx:all": "npm run nginx:clean; npm run nginx:build; npm run nginx:run",
-    "api:run-bridge": "docker run -d --name feature-api --network bridge -p 3000:80 feature/api",
-    "nginx:run-bridge": "docker run -d --name feature-nginx --network bridge -p 80:80 feature/nginx"
+    "api:run-bridge": "docker run -d --rm --name feature-api --network bridge -p 3000:80 feature/api",
+    "nginx:run-bridge": "docker run -d --rm --name feature-nginx --network bridge -p 80:80 feature/nginx",
+    "api:run-feature-net": "docker run -d --rm --name feature-api --network feature-net feature/api",
+    "nginx:run-feature-net": "docker run -d --rm --name feature-nginx --network feature-net -p 80:80 feature/nginx"
   },
   "keywords": [],
   "author": "",
