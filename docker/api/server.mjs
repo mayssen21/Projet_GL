@@ -1,11 +1,14 @@
-import { createServer } from "./server.mjs";
+import Fastify from "fastify";
+import { isFeatureEnabled } from "./featureStore.mjs";
 
-const server = createServer();
+export function createServer() {
+  const server = Fastify();
 
-try {
-  const address = await server.listen({ host: "0.0.0.0", port: 3000 });
-  console.log(`Server started on ${address}`);
-} catch (err) {
-  console.log(err);
-  process.exit(1);
+  server.get("/feature/:code", async (request, reply) => {
+    const { code } = request.params;
+    const enabled = await isFeatureEnabled(code);
+    reply.send({ code, enabled });
+  });
+
+  return server;
 }
